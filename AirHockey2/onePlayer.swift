@@ -112,7 +112,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     func reset() {
         let delayInSeconds = 4.0
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-            self.winnerLabel.text = "120"
+            self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
             self.leftScoreCounter = 0
@@ -138,10 +138,21 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x, y: puck.position.y), duration: 0.2))
         }
         
-        if counter % 13 == 0 && timerCounter != 0
+        if counter % 14 == 0 && timerCounter != 0
         {
-            timerCounter -= 1
-            winnerLabel.text = "\(timerCounter)"
+            if counter == 14 {
+                winnerLabel.text = "Ready!"
+            }
+            else if counter == 28 {
+                winnerLabel.text = "Set!"
+            }
+            else if counter == 42 {
+                winnerLabel.text = "GO!"
+            }
+            else {
+                timerCounter -= 1
+                winnerLabel.text = "\(timerCounter)"
+            }
         }
         else if timerCounter == 0
         {
