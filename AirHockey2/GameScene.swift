@@ -44,6 +44,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rightScore = self.childNode(withName: "rightScore") as! SKLabelNode
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
         
+        print(self.view?.window?.rootViewController)
+        
         physicsWorld.contactDelegate = self
         
         let bottomLeft = CGPoint(x: frame.origin.x + 25, y: frame.origin.y)
@@ -119,15 +121,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
             if leftScoreCounter == 2 {
-                let alert = UIAlertController(title: "Player One Wins!", message: nil, preferredStyle: .alert)
-                let backToMenu = UIAlertAction(title: "Back to Main Menu", style: .default , handler: { (UIAlertAction) in
+                let alert = UIAlertController(title: "Player One Wins", message: nil, preferredStyle: .alert)
+                let backToMenu = UIAlertAction(title: "Back to Main Menu", style: .default, handler: { (UIAlertAction) in
+                    self.view?.window?.rootViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
                 })
                 let resetButton = UIAlertAction(title: "Play Again", style: .default, handler: { (UIAlertAction) in
                     self.reset()
                 })
                 alert.addAction(backToMenu)
                 alert.addAction(resetButton)
+                print(self.view?.window?.rootViewController)
                 self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                print(self.view?.window?.rootViewController)
             }
             else {
                     puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
@@ -146,7 +151,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 })
                 alert.addAction(backToMenu)
                 alert.addAction(resetButton)
+                print(self.view?.window?.rootViewController)
                 self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                print(self.view?.window?.rootViewController)
             }
                 
             else {
