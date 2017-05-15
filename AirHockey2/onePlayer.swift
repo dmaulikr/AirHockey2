@@ -128,6 +128,11 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
         counter += 1
+        if counter < 48 {
+            leftPaddle.position = CGPoint(x: -410, y: -50)
+            rightPaddle.position = CGPoint(x: 410, y: -50)
+            puck.position = CGPoint(x: 0, y: -50)
+        }
         if puck.position.x < 0
         {
             rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: puck.position.y), duration: 0.2))
@@ -158,7 +163,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         {
             if rightScoreCounter > leftScoreCounter
             {
-                winnerLabel.text = "Player 2 Wins!"
+                winnerLabel.text = "CPU Wins!"
                 reset()
             }
             else if leftScoreCounter > rightScoreCounter

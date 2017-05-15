@@ -162,6 +162,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
         counter += 1
+        if counter < 48 {
+            leftPaddle.position = CGPoint(x: -410, y: -50)
+            rightPaddle.position = CGPoint(x: 410, y: -50)
+            puck.position = CGPoint(x: 0, y: -50)
+        }
         if counter % 14 == 0 && timerCounter != 0
         {
             if counter == 14 {
