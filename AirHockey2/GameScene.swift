@@ -10,7 +10,6 @@ import SpriteKit
 import GameplayKit
 import UIKit
 
-
 let puckCategory: UInt32 = 0x1 << 0
 let bottomCategory: UInt32 = 0x1 << 1
 let topCategory: UInt32 = 0x1 << 2
@@ -102,6 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             let location = touch.location(in: self)
             
+            
             if location.x > 0 && location.y < 249
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
@@ -115,6 +115,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        
+        if contact.bodyA.categoryBitMask == paddleCategory
+        {
+            var currentPaddle = contact.bodyA.node?.name!
+            
+            if currentPaddle == "rightPaddle"
+            {
+                print("right")
+                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - rightPaddle.position.x  , dy: puck.position.y - rightPaddle.position.y))
+            }
+            
+            if currentPaddle == "leftPaddle"
+            {
+                print("left")
+                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - leftPaddle.position.x  , dy: puck.position.y - leftPaddle.position.y))
+            }
+            
+        }
+        
         if contact.bodyA.categoryBitMask == rightGoalCategory {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
@@ -131,7 +150,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             else {
                     puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
-                 }
+            }
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
