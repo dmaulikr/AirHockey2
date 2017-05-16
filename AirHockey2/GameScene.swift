@@ -34,8 +34,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var winnerLabel = SKLabelNode()
     var airhorn = NSURL(fileURLWithPath:Bundle.main.path(forResource: "mlg-airhorn", ofType: "mp3")!)
     var audioPlayer = AVAudioPlayer()
-
-
     
     override func didMove(to view: SKView)
     {
@@ -78,7 +76,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(top)
         addChild(right)
         
-        
         leftPaddle.physicsBody?.categoryBitMask = paddleCategory
         rightPaddle.physicsBody?.categoryBitMask = paddleCategory
         puck.physicsBody?.categoryBitMask = puckCategory
@@ -109,7 +106,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             let location = touch.location(in: self)
             
-            
             if location.x > 0 && location.y < 249
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
@@ -126,7 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if contact.bodyA.categoryBitMask == paddleCategory
         {
-            var currentPaddle = contact.bodyA.node?.name!
+            let currentPaddle = contact.bodyA.node?.name!
             
             if currentPaddle == "rightPaddle"
             {
@@ -139,7 +135,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 print("left")
                 puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - leftPaddle.position.x  , dy: puck.position.y - leftPaddle.position.y))
             }
-            
         }
         
         if contact.bodyA.categoryBitMask == rightGoalCategory {
@@ -159,6 +154,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             else {
                     puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
             }
+            puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
+            audioPlayer = try! AVAudioPlayer(contentsOf: airhorn as URL)
+            audioPlayer.prepareToPlay()
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
@@ -171,7 +169,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func playSound(sound: SKAction) {
         run(sound)
     }
-    
     
     func reset() {
         let delayInSeconds = 4.0
@@ -186,6 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
         }
     }
+    
     var counter = 1
     var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
@@ -227,6 +225,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 reset()
             }
         }
-
     }
 }
