@@ -81,15 +81,6 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if puck.position.x < 0
-        {
-            rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: puck.position.y), duration: 0.2))
-        }
-            
-        else if puck.position.x > 0
-        {
-            rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x, y: puck.position.y), duration: 0.2))
-        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -102,6 +93,46 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.categoryBitMask == rightGoalCategory {
+            leftScoreCounter += 1
+            leftScore.text = "\(leftScoreCounter)"
+            puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
+        }
+            
+        else if contact.bodyA.categoryBitMask == leftGoalCategory {
+            rightScoreCounter += 1
+            rightScore.text = "\(rightScoreCounter)"
+            puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
+        }
+    }
+    
+    func reset() {
+        let delayInSeconds = 4.0
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+            self.winnerLabel.text = "Ready!"
+            self.leftScore.text = "0"
+            self.rightScore.text = "0"
+            self.leftScoreCounter = 0
+            self.rightScoreCounter = 0
+            self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
+            self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
+            self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
+            self.counter = 1
+            self.timerCounter = 120
+        }
+    }
+    var counter = 1
+    var timerCounter = 120
+    override func update(_ currentTime: TimeInterval) {
+        counter += 1
+        if counter < 48 {
+            leftPaddle.position = CGPoint(x: -410, y: -50)
+            rightPaddle.position = CGPoint(x: 410, y: -50)
+            puck.position = CGPoint(x: 0, y: -50)
+        }
         if puck.position.x < 0
         {
             rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: puck.position.y), duration: 0.2))
@@ -111,50 +142,38 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         {
             rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x, y: puck.position.y), duration: 0.2))
         }
-    }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.categoryBitMask == rightGoalCategory {
-            leftScoreCounter += 1
-            leftScore.text = "\(leftScoreCounter)"
-            if leftScoreCounter == 10
+        
+        if counter % 14 == 0 && timerCounter != 0
+        {
+            if counter == 14 {
+                winnerLabel.text = "Ready!"
+            }
+            else if counter == 28 {
+                winnerLabel.text = "Set!"
+            }
+            else if counter == 42 {
+                winnerLabel.text = "GO!"
+            }
+            else {
+                timerCounter -= 1
+                winnerLabel.text = "\(timerCounter)"
+            }
+        }
+        else if timerCounter == 0
+        {
+            if rightScoreCounter > leftScoreCounter
+            {
+                winnerLabel.text = "CPU Wins!"
+                reset()
+            }
+            else if leftScoreCounter > rightScoreCounter
             {
                 winnerLabel.text = "Player 1 Wins!"
                 reset()
             }
             else {
-                puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
-            }
-        }
-            
-        else if contact.bodyA.categoryBitMask == leftGoalCategory {
-            rightScoreCounter += 1
-            rightScore.text = "\(rightScoreCounter)"
-            if rightScoreCounter == 10
-            {
-                winnerLabel.text = "Player 2 Wins!"
                 reset()
             }
-            else {
-                puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
-            }
         }
-    }
-    
-    func reset() {
-        let delayInSeconds = 4.0
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-            self.winnerLabel.text = "Play!"
-            self.leftScore.text = "0"
-            self.rightScore.text = "0"
-            self.leftScoreCounter = 0
-            self.rightScoreCounter = 0
-            self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
-            self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
-            self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
-        }
-    }
-    
-    override func update(_ currentTime: TimeInterval) {
     }
 }

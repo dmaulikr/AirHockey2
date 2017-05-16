@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 import UIKit
+import AVFoundation
 
 let puckCategory: UInt32 = 0x1 << 0
 let bottomCategory: UInt32 = 0x1 << 1
@@ -31,6 +32,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var leftScoreCounter = 0
     var rightScoreCounter = 0
     var winnerLabel = SKLabelNode()
+    var airhorn = NSURL(fileURLWithPath:Bundle.main.path(forResource: "mlg-airhorn", ofType: "mp3")!)
+    var audioPlayer = AVAudioPlayer()
+
+
     
     override func didMove(to view: SKView)
     {
@@ -42,6 +47,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         leftScore = self.childNode(withName: "leftScore") as! SKLabelNode
         rightScore = self.childNode(withName: "rightScore") as! SKLabelNode
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
+        
+        print(self.view?.window?.rootViewController)
         
         physicsWorld.contactDelegate = self
         
@@ -70,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(left)
         addChild(top)
         addChild(right)
+        
         
         leftPaddle.physicsBody?.categoryBitMask = paddleCategory
         rightPaddle.physicsBody?.categoryBitMask = paddleCategory
@@ -156,28 +164,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
             rightScoreCounter += 1
             rightScore.text = "\(rightScoreCounter)"
-            if rightScoreCounter == 2 {
-                let alert = UIAlertController(title: "Player Two Wins!", message: nil, preferredStyle: .alert)
-                let backToMenu = UIAlertAction(title: "Back to Main Menu", style: .default , handler: { (UIAlertAction) in
-                })
-                let resetButton = UIAlertAction(title: "Play Again", style: .default, handler: { (UIAlertAction) in
-                    self.reset()
-                })
-                alert.addAction(backToMenu)
-                alert.addAction(resetButton)
-                self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
-                
-            else {
-                puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
-                }
+                self.puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
             }
         }
+    
+    func playSound(sound: SKAction) {
+        run(sound)
+    }
+    
     
     func reset() {
         let delayInSeconds = 4.0
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-            self.winnerLabel.text = "Play!"
+            self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
             self.leftScoreCounter = 0
@@ -187,7 +186,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
         }
     }
-    
+    var counter = 1
+    var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
+        counter += 1
+        if counter < 48 {
+            leftPaddle.position = CGPoint(x: -410, y: -50)
+            rightPaddle.position = CGPoint(x: 410, y: -50)
+            puck.position = CGPoint(x: 0, y: -50)
+        }
+        if counter % 14 == 0 && timerCounter != 0
+        {
+            if counter == 14 {
+                winnerLabel.text = "Ready!"
+            }
+            else if counter == 28 {
+                winnerLabel.text = "Set!"
+            }
+            else if counter == 42 {
+                winnerLabel.text = "GO!"
+            }
+            else {
+                timerCounter -= 1
+                winnerLabel.text = "\(timerCounter)"
+            }
+        }
+        else if timerCounter == 0
+        {
+            if rightScoreCounter > leftScoreCounter
+            {
+                winnerLabel.text = "Player 2 Wins!"
+                reset()
+            }
+            else if leftScoreCounter > rightScoreCounter
+            {
+                winnerLabel.text = "Player 1 Wins!"
+                reset()
+            }
+            else {
+                reset()
+            }
+        }
+
     }
 }
