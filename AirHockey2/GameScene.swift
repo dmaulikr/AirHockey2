@@ -32,8 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var leftScoreCounter = 0
     var rightScoreCounter = 0
     var winnerLabel = SKLabelNode()
-    var airhorn = NSURL(fileURLWithPath:Bundle.main.path(forResource: "mlg-airhorn", ofType: "mp3")!)
-    var audioPlayer = AVAudioPlayer()
+
     
     override func didMove(to view: SKView)
     {
@@ -127,13 +126,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if currentPaddle == "rightPaddle"
             {
                 print("right")
-                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - rightPaddle.position.x  , dy: puck.position.y - rightPaddle.position.y))
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - rightPaddle.position.x)  , dy: 1.3 * (puck.position.y - rightPaddle.position.y)))
             }
             
             if currentPaddle == "leftPaddle"
             {
                 print("left")
-                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - leftPaddle.position.x  , dy: puck.position.y - leftPaddle.position.y))
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - leftPaddle.position.x)  , dy: 1.3 * (puck.position.y - leftPaddle.position.y)))
             }
         }
         
@@ -155,8 +154,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
             }
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
-            audioPlayer = try! AVAudioPlayer(contentsOf: airhorn as URL)
-            audioPlayer.prepareToPlay()
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
