@@ -139,29 +139,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask == rightGoalCategory {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
-            if leftScoreCounter == 2 {
-                let alert = UIAlertController(title: "Player One Wins!", message: nil, preferredStyle: .alert)
-                let backToMenu = UIAlertAction(title: "Back to Main Menu", style: .default , handler: { (UIAlertAction) in
-                })
-                let resetButton = UIAlertAction(title: "Play Again", style: .default, handler: { (UIAlertAction) in
-                    self.reset()
-                })
-                alert.addAction(backToMenu)
-                alert.addAction(resetButton)
-                self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
-            else {
-                    puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
-            }
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
             rightScoreCounter += 1
             rightScore.text = "\(rightScoreCounter)"
-                self.puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
-            }
+            puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
+            puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
+    }
     
     func playSound(sound: SKAction) {
         run(sound)
@@ -178,6 +165,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
             self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
             self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
+            self.puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
     }
     
