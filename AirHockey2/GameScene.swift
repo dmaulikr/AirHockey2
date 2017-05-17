@@ -124,13 +124,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if currentPaddle == "rightPaddle"
             {
                 print("right")
-                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - rightPaddle.position.x  , dy: puck.position.y - rightPaddle.position.y))
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.2 * (puck.position.x - rightPaddle.position.x)  , dy: 1.2 * (puck.position.y - rightPaddle.position.y)))
             }
             
             if currentPaddle == "leftPaddle"
             {
                 print("left")
-                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - leftPaddle.position.x  , dy: puck.position.y - leftPaddle.position.y))
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.2 * (puck.position.x - leftPaddle.position.x)  , dy: 1.2 * (puck.position.y - leftPaddle.position.y)))
             }
         }
         
@@ -138,7 +138,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
-            puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
