@@ -32,6 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var leftScoreCounter = 0
     var rightScoreCounter = 0
     var winnerLabel = SKLabelNode()
+    var didEnd = false
     
     override func didMove(to view: SKView)
     {
@@ -43,8 +44,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         leftScore = self.childNode(withName: "leftScore") as! SKLabelNode
         rightScore = self.childNode(withName: "rightScore") as! SKLabelNode
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
-        
-        print(self.view?.window?.rootViewController)
         
         physicsWorld.contactDelegate = self
         
@@ -168,13 +167,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             self.leftPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             self.rightPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            self.didEnd = false
+            self.counter = 1
+            self.timerCounter = 120
         }
     }
     
     var counter = 1
     var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
-        counter += 1
+        if didEnd == false{
+            counter += 1
+        }
         if counter < 48 {
             leftPaddle.position = CGPoint(x: -410, y: -50)
             rightPaddle.position = CGPoint(x: 410, y: -50)
@@ -202,14 +206,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             {
                 winnerLabel.text = "Player 2 Wins!"
                 reset()
+                didEnd = true
             }
             else if leftScoreCounter > rightScoreCounter
             {
                 winnerLabel.text = "Player 1 Wins!"
                 reset()
+                didEnd = true
             }
             else {
                 reset()
+                didEnd = true
             }
         }
     }
