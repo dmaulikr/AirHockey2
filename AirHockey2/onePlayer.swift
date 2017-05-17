@@ -96,6 +96,24 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        
+        if contact.bodyA.categoryBitMask == paddleCategory
+        {
+            let currentPaddle = contact.bodyA.node?.name!
+            
+            if currentPaddle == "rightPaddle"
+            {
+                print("right")
+                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - rightPaddle.position.x  , dy: puck.position.y - rightPaddle.position.y))
+            }
+            
+            if currentPaddle == "leftPaddle"
+            {
+                print("left")
+                puck.physicsBody?.applyImpulse(CGVector(dx: puck.position.x - leftPaddle.position.x  , dy: puck.position.y - leftPaddle.position.y))
+            }
+        }
+        
         if contact.bodyA.categoryBitMask == rightGoalCategory {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
