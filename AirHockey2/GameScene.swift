@@ -166,6 +166,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
             self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
             self.puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            self.leftPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            self.rightPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
     }
     
