@@ -32,8 +32,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var leftScoreCounter = 0
     var rightScoreCounter = 0
     var winnerLabel = SKLabelNode()
-    var airhorn = NSURL(fileURLWithPath:Bundle.main.path(forResource: "mlg-airhorn", ofType: "mp3")!)
-    var audioPlayer = AVAudioPlayer()
     
     override func didMove(to view: SKView)
     {
@@ -140,31 +138,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask == rightGoalCategory {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
-            if leftScoreCounter == 2 {
-                let alert = UIAlertController(title: "Player One Wins!", message: nil, preferredStyle: .alert)
-                let backToMenu = UIAlertAction(title: "Back to Main Menu", style: .default , handler: { (UIAlertAction) in
-                })
-                let resetButton = UIAlertAction(title: "Play Again", style: .default, handler: { (UIAlertAction) in
-                    self.reset()
-                })
-                alert.addAction(backToMenu)
-                alert.addAction(resetButton)
-                self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
-            else {
-                    puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
-            }
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
-            audioPlayer = try! AVAudioPlayer(contentsOf: airhorn as URL)
-            audioPlayer.prepareToPlay()
+
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
             rightScoreCounter += 1
             rightScore.text = "\(rightScoreCounter)"
-                self.puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
-            }
+            puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
+            
         }
+    }
     
     func playSound(sound: SKAction) {
         run(sound)
