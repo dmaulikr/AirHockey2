@@ -80,9 +80,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rightGoal.physicsBody?.categoryBitMask = rightGoalCategory
         
         puck.physicsBody?.contactTestBitMask = paddleCategory | leftGoalCategory | rightGoalCategory
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if counter < 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -96,9 +98,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
         }
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if counter < 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -112,6 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
+        }
         }
     }
     
@@ -153,7 +158,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func reset() {
-        let delayInSeconds = 4.0
+        let delayInSeconds = 2.0
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
@@ -178,20 +183,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if didEnd == false{
             counter += 1
         }
-        if counter < 48 {
-            leftPaddle.position = CGPoint(x: -410, y: -50)
-            rightPaddle.position = CGPoint(x: 410, y: -50)
-            puck.position = CGPoint(x: 0, y: -50)
-        }
-        if counter % 14 == 0 && timerCounter != 0
+        if counter % 56 == 0 && timerCounter != 0
         {
-            if counter == 14 {
+            if counter == 56 {
                 winnerLabel.text = "Ready!"
             }
-            else if counter == 28 {
+            else if counter == 112 {
                 winnerLabel.text = "Set!"
             }
-            else if counter == 42 {
+            else if counter == 168 {
                 winnerLabel.text = "GO!"
             }
             else {
@@ -217,6 +217,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 reset()
                 didEnd = true
             }
+        }
+        if rightPaddle.position.x < 0 {
+            rightPaddle.position = CGPoint(x: 0, y: rightPaddle.position.y)
+        }
+        if leftPaddle.position.x > 0 {
+            leftPaddle.position = CGPoint(x: 0, y: leftPaddle.position.y)
         }
     }
 }
