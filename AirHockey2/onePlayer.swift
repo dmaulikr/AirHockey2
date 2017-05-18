@@ -118,12 +118,16 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
+            puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
             rightScoreCounter += 1
             rightScore.text = "\(rightScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
+            puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+
         }
     }
     
