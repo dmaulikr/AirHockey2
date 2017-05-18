@@ -72,6 +72,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if counter < 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -80,10 +81,11 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
         }
-        
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if counter < 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -92,7 +94,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
         }
-        
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -146,11 +148,6 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
         counter += 1
-        if counter < 42 {
-            leftPaddle.position = CGPoint(x: -410, y: -50)
-            rightPaddle.position = CGPoint(x: 410, y: -50)
-            puck.position = CGPoint(x: 0, y: -50)
-        }
         if puck.position.x < 0
         {
             rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: puck.position.y), duration: 0.2))
