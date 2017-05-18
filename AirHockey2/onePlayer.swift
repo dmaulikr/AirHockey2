@@ -193,5 +193,12 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 reset()
             }
         }
+        
+        if rightPaddle.position.x < 0 {
+            rightPaddle.position = CGPoint(x: 0, y: rightPaddle.position.y)
+        }
+        if leftPaddle.position.x > 0 {
+            leftPaddle.position = CGPoint(x: 0, y: leftPaddle.position.y)
+        }
     }
 }
