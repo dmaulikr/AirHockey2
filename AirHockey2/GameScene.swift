@@ -33,6 +33,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rightScoreCounter = 0
     var winnerLabel = SKLabelNode()
     var didEnd = false
+    var playAgainNode = SKSpriteNode()
+    var backToMainNode = SKSpriteNode()
     
     override func didMove(to view: SKView)
     {
@@ -44,6 +46,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         leftScore = self.childNode(withName: "leftScore") as! SKLabelNode
         rightScore = self.childNode(withName: "rightScore") as! SKLabelNode
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
+        playAgainNode = self.childNode(withName: "playAgain") as! SKSpriteNode
+        backToMainNode = self.childNode(withName: "backToMain") as! SKSpriteNode
+        
+        playAgainNode.alpha = 0
+        backToMainNode.alpha = 0
         
         physicsWorld.contactDelegate = self
         
