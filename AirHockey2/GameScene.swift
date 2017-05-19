@@ -174,8 +174,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func reset() {
-        let delayInSeconds = 2.0
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+//        let delayInSeconds = 2.0
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
@@ -192,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.timerCounter = 120
             self.backToMainNode.alpha = 0
             self.playAgainNode.alpha = 0
-        }
+//        }
     }
     
     var counter = 1
