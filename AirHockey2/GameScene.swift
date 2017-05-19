@@ -47,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rightScore = self.childNode(withName: "rightScore") as! SKLabelNode
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
         playAgainNode = self.childNode(withName: "playAgain") as! SKSpriteNode
-        backToMainNode = self.childNode(withName: "backToMain") as! SKSpriteNode
+        backToMainNode = self.childNode(withName: "backToMenu") as! SKSpriteNode
         
         playAgainNode.alpha = 0
         backToMainNode.alpha = 0
@@ -95,6 +95,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
+            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
+            }
+            if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+            }
             if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
@@ -113,13 +119,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            
-            if location.x > 0 && location.y < 249
+            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
+            }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+            }
+            else if location.x > 0 && location.y < 249
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
             
-            if location.x < 0 && location.y < 249
+            else if location.x < 0 && location.y < 249
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
@@ -179,11 +190,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.didEnd = false
             self.counter = 1
             self.timerCounter = 120
+            self.backToMainNode.alpha = 0
+            self.playAgainNode.alpha = 0
         }
     }
     
     var counter = 1
-    var timerCounter = 120
+    var timerCounter = 2
     override func update(_ currentTime: TimeInterval) {
         if didEnd == false{
             counter += 1
@@ -206,20 +219,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else if timerCounter == 0
         {
+            playAgainNode.alpha = 1
+            backToMainNode.alpha = 1
             if rightScoreCounter > leftScoreCounter
             {
                 winnerLabel.text = "Player 2 Wins!"
-                reset()
+//                reset()
                 didEnd = true
             }
             else if leftScoreCounter > rightScoreCounter
             {
                 winnerLabel.text = "Player 1 Wins!"
-                reset()
+//                reset()
                 didEnd = true
             }
             else {
-                reset()
+//                reset()
                 didEnd = true
             }
         }
