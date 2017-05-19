@@ -21,6 +21,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var leftScoreCounter = 0
     var rightScoreCounter = 0
     var winnerLabel = SKLabelNode()
+    var playAgainNode = SKSpriteNode()
+    var backToMainNode = SKSpriteNode()
     
     override func didMove(to view: SKView)
     {
@@ -32,6 +34,12 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         leftScore = self.childNode(withName: "leftScore") as! SKLabelNode
         rightScore = self.childNode(withName: "rightScore") as! SKLabelNode
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
+        playAgainNode = self.childNode(withName: "playAgain") as! SKSpriteNode
+        backToMainNode = self.childNode(withName: "backToMenu") as! SKSpriteNode
+        
+        playAgainNode.alpha = 0
+        backToMainNode.alpha = 0
+
         
         physicsWorld.contactDelegate = self
         
@@ -180,18 +188,20 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         }
         else if timerCounter == 0
         {
+            playAgainNode.alpha = 1
+            backToMainNode.alpha = 1
             if rightScoreCounter > leftScoreCounter
             {
                 winnerLabel.text = "CPU Wins!"
-                reset()
+//                reset()
             }
             else if leftScoreCounter > rightScoreCounter
             {
-                winnerLabel.text = "Player 1 Wins!"
-                reset()
+                winnerLabel.text = "Player Wins!"
+//                reset()
             }
             else {
-                reset()
+//                reset()
             }
         }
         
