@@ -84,7 +84,13 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneOneSegue", sender: self)
+            }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+            }
+            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
@@ -97,7 +103,13 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneOneSegue", sender: self)
+            }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+            }
+            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
@@ -154,6 +166,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
             self.counter = 1
             self.timerCounter = 120
+            self.backToMainNode.alpha = 0
+            self.playAgainNode.alpha = 0
         }
     }
     var counter = 1
