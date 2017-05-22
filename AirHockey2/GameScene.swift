@@ -203,16 +203,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if counter % 56 == 0 && timerCounter != 0
         {
-            if counter == 56 {
+            if counter <= 56 {
                 winnerLabel.text = "Ready!"
             }
-            else if counter == 112 {
+            else if counter <= 112 {
                 winnerLabel.text = "Set!"
             }
-            else if counter == 168 {
+            else if counter <= 168 {
                 winnerLabel.text = "GO!"
             }
-            else {
+            else if counter > 168 {
                 timerCounter -= 1
                 winnerLabel.text = "\(timerCounter)"
             }
