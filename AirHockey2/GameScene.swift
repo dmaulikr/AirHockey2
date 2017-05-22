@@ -91,7 +91,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -115,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -198,7 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var counter = 1
     var timerCounter = 2
     override func update(_ currentTime: TimeInterval) {
-        if didEnd == false{
+        if didEnd == false {
             counter += 1
         }
         if counter % 56 == 0 && timerCounter != 0

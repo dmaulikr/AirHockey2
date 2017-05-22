@@ -80,7 +80,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -93,7 +93,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -170,7 +170,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x, y: puck.position.y), duration: 0.2))
         }
         
-        if counter % 42 == 0 && timerCounter != 0
+        if counter % 56 == 0 && timerCounter != 0
         {
             if counter <= 56 {
                 winnerLabel.text = "Ready!"
