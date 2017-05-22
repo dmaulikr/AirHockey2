@@ -91,22 +91,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
             if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                 self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
             }
-            if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
             }
-            if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
+            else if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
             
-            if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
@@ -115,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -151,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if currentPaddle == "leftPaddle"
             {
-                puck.physicsBody?.applyImpulse(CGVector(dx: 1.2 * (puck.position.x - leftPaddle.position.x)  , dy: 1.2 * (puck.position.y - leftPaddle.position.y)))
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.2 * (puck.position.x - leftPaddle.position.x), dy: 1.2 * (puck.position.y - leftPaddle.position.y)))
             }
         }
         
@@ -159,6 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
+            puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
@@ -169,13 +170,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func playSound(sound: SKAction) {
-        run(sound)
-    }
-    
     func reset() {
-//        let delayInSeconds = 2.0
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+        let delayInSeconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
@@ -192,27 +189,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.timerCounter = 120
             self.backToMainNode.alpha = 0
             self.playAgainNode.alpha = 0
-//        }
+        }
     }
     
     var counter = 1
-    var timerCounter = 2
+    var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
-        if didEnd == false{
+        if didEnd == false {
             counter += 1
         }
         if counter % 56 == 0 && timerCounter != 0
         {
-            if counter == 56 {
+            if counter <= 56 {
                 winnerLabel.text = "Ready!"
             }
-            else if counter == 112 {
+            else if counter <= 112 {
                 winnerLabel.text = "Set!"
             }
-            else if counter == 168 {
+            else if counter <= 168 {
                 winnerLabel.text = "GO!"
             }
-            else {
+            else if counter > 168 {
                 timerCounter -= 1
                 winnerLabel.text = "\(timerCounter)"
             }
