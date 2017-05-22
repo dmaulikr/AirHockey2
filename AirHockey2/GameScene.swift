@@ -133,7 +133,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if currentPaddle == "leftPaddle"
             {
-                puck.physicsBody?.applyImpulse(CGVector(dx: 1.2 * (puck.position.x - leftPaddle.position.x)  , dy: 1.2 * (puck.position.y - leftPaddle.position.y)))
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.2 * (puck.position.x - leftPaddle.position.x), dy: 1.2 * (puck.position.y - leftPaddle.position.y)))
             }
         }
         
