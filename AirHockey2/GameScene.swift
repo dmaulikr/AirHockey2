@@ -33,6 +33,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rightScoreCounter = 0
     var winnerLabel = SKLabelNode()
     var didEnd = false
+    var playAgainNode = SKSpriteNode()
+    var backToMainNode = SKSpriteNode()
     
     override func didMove(to view: SKView)
     {
@@ -44,6 +46,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         leftScore = self.childNode(withName: "leftScore") as! SKLabelNode
         rightScore = self.childNode(withName: "rightScore") as! SKLabelNode
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
+        playAgainNode = self.childNode(withName: "playAgain") as! SKSpriteNode
+        backToMainNode = self.childNode(withName: "backToMenu") as! SKSpriteNode
+        
+        playAgainNode.alpha = 0
+        backToMainNode.alpha = 0
         
         physicsWorld.contactDelegate = self
         
@@ -84,16 +91,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
+            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
+            }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+            }
+            else if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
             
-            if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
@@ -102,17 +115,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter < 168 {
+        if counter > 168 {
         for touch in touches
         {
             let location = touch.location(in: self)
-            
-            if location.x > 0 && location.y < 249
+            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
+            }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+            }
+            else if location.x > 0 && location.y < 249
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
             
-            if location.x < 0 && location.y < 249
+            else if location.x < 0 && location.y < 249
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
@@ -141,6 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
+            puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
@@ -149,10 +168,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
             puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
-    }
-    
-    func playSound(sound: SKAction) {
-        run(sound)
     }
     
     func reset() {
@@ -172,47 +187,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.didEnd = false
             self.counter = 1
             self.timerCounter = 120
+            self.backToMainNode.alpha = 0
+            self.playAgainNode.alpha = 0
         }
     }
     
     var counter = 1
     var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
-        if didEnd == false{
+        if didEnd == false {
             counter += 1
         }
         if counter % 56 == 0 && timerCounter != 0
         {
-            if counter == 56 {
+            if counter <= 56 {
                 winnerLabel.text = "Ready!"
             }
-            else if counter == 112 {
+            else if counter <= 112 {
                 winnerLabel.text = "Set!"
             }
-            else if counter == 168 {
+            else if counter <= 168 {
                 winnerLabel.text = "GO!"
             }
-            else {
+            else if counter > 168 {
                 timerCounter -= 1
                 winnerLabel.text = "\(timerCounter)"
             }
         }
         else if timerCounter == 0
         {
+            playAgainNode.alpha = 1
+            backToMainNode.alpha = 1
             if rightScoreCounter > leftScoreCounter
             {
                 winnerLabel.text = "Player 2 Wins!"
-                reset()
+//                reset()
                 didEnd = true
             }
             else if leftScoreCounter > rightScoreCounter
             {
                 winnerLabel.text = "Player 1 Wins!"
-                reset()
+//                reset()
                 didEnd = true
             }
             else {
-                reset()
+//                reset()
                 didEnd = true
             }
         }
