@@ -98,15 +98,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                 self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
             }
-            if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
             }
-            if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
+            else if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
             {
                 rightPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
             
-            if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
                 leftPaddle.run(SKAction.move(to: location, duration: 0.1))
             }
@@ -159,6 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             leftScoreCounter += 1
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
+            puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
@@ -169,13 +170,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func playSound(sound: SKAction) {
-        run(sound)
-    }
-    
     func reset() {
-//        let delayInSeconds = 2.0
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+        let delayInSeconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
@@ -192,11 +189,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.timerCounter = 120
             self.backToMainNode.alpha = 0
             self.playAgainNode.alpha = 0
-//        }
+        }
     }
     
     var counter = 1
-    var timerCounter = 2
+    var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
         if didEnd == false{
             counter += 1
