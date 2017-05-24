@@ -195,7 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     var counter = 1
-    var timerCounter = 2
+    var timerCounter = 120
     override func update(_ currentTime: TimeInterval) {
         if didEnd == false {
             counter += 1
