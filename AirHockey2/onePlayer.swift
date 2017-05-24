@@ -85,7 +85,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         {
             let location = touch.location(in: self)
             if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneOneSegue", sender: self)
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
@@ -104,7 +105,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         {
             let location = touch.location(in: self)
             if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneOneSegue", sender: self)
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
@@ -154,8 +156,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     }
     
     func reset() {
-        let delayInSeconds = 2.0
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+//        let delayInSeconds = 2.0
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
@@ -168,7 +170,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             self.timerCounter = 120
             self.backToMainNode.alpha = 0
             self.playAgainNode.alpha = 0
-        }
+//        }
     }
     var counter = 1
     var timerCounter = 120
