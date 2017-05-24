@@ -93,7 +93,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             }
             else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.1))
+                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
             }
         }
         }
@@ -113,7 +113,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             }
             else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.1))
+                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
             }
         }
         }
