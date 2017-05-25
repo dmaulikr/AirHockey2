@@ -120,21 +120,25 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        
+        print(contact.bodyA)
+        print(contact.bodyB)
         if contact.bodyA.categoryBitMask == paddleCategory
         {
             let currentPaddle = contact.bodyA.node?.name!
-            
-            if currentPaddle == "rightPaddle"
-            {
-                print("right")
-                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - rightPaddle.position.x)  , dy: 1.3 * (puck.position.y - rightPaddle.position.y)))
-            }
-            
+            print(currentPaddle!)
             if currentPaddle == "leftPaddle"
             {
                 print("left")
                 puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - leftPaddle.position.x)  , dy: 1.3 * (puck.position.y - leftPaddle.position.y)))
+            }
+        }
+        else if  contact.bodyB.categoryBitMask == paddleCategory {
+            let currentPaddle = contact.bodyB.node?.name!
+            print(currentPaddle!)
+            if currentPaddle == "rightPaddle"
+            {
+                print("right")
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - rightPaddle.position.x)  , dy: 1.3 * (puck.position.y - rightPaddle.position.y)))
             }
         }
         
