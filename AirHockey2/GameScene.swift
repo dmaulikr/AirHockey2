@@ -193,22 +193,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func reset() {
 //        let delayInSeconds = 2.0
 //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-            self.winnerLabel.text = "Ready!"
-            self.leftScore.text = "0"
-            self.rightScore.text = "0"
-            self.leftScoreCounter = 0
-            self.rightScoreCounter = 0
-            self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
-            self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
-            self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
-            self.puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            self.leftPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            self.rightPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            self.didEnd = false
-            self.counter = 1
-            self.timerCounter = 120
-            self.backToMainNode.alpha = 0
-            self.playAgainNode.alpha = 0
+        self.winnerLabel.text = "Ready!"
+        self.leftScore.text = "0"
+        self.rightScore.text = "0"
+        self.leftScoreCounter = 0
+        self.rightScoreCounter = 0
+        self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
+        self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
+        self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
+        self.puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        self.leftPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        self.rightPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        self.didEnd = false
+        self.counter = 1
+        self.timerCounter = 120
+        self.backToMainNode.alpha = 0
+        self.playAgainNode.alpha = 0
+        self.backToMainOnBarNode.alpha = 1
+        self.resetNode.alpha = 1
+        
 //        }
     }
     
@@ -238,6 +241,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             playAgainNode.alpha = 1
             backToMainNode.alpha = 1
+            backToMainOnBarNode.alpha = 0
+            resetNode.alpha = 0
             if rightScoreCounter > leftScoreCounter
             {
                 winnerLabel.text = "Player 2 Wins!"
