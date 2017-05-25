@@ -85,14 +85,15 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         {
             let location = touch.location(in: self)
             if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneOneSegue", sender: self)
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
             }
             else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.1))
+                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
             }
         }
         }
@@ -104,35 +105,40 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         {
             let location = touch.location(in: self)
             if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneOneSegue", sender: self)
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
             }
             else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.1))
+                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
             }
         }
         }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        
+        print(contact.bodyA)
+        print(contact.bodyB)
         if contact.bodyA.categoryBitMask == paddleCategory
         {
             let currentPaddle = contact.bodyA.node?.name!
-            
-            if currentPaddle == "rightPaddle"
-            {
-                print("right")
-                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - rightPaddle.position.x)  , dy: 1.3 * (puck.position.y - rightPaddle.position.y)))
-            }
-            
+            print(currentPaddle!)
             if currentPaddle == "leftPaddle"
             {
                 print("left")
                 puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - leftPaddle.position.x)  , dy: 1.3 * (puck.position.y - leftPaddle.position.y)))
+            }
+        }
+        else if  contact.bodyB.categoryBitMask == paddleCategory {
+            let currentPaddle = contact.bodyB.node?.name!
+            print(currentPaddle!)
+            if currentPaddle == "rightPaddle"
+            {
+                print("right")
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - rightPaddle.position.x)  , dy: 1.3 * (puck.position.y - rightPaddle.position.y)))
             }
         }
         
@@ -154,8 +160,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     }
     
     func reset() {
-        let delayInSeconds = 2.0
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+//        let delayInSeconds = 2.0
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
@@ -168,7 +174,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             self.timerCounter = 120
             self.backToMainNode.alpha = 0
             self.playAgainNode.alpha = 0
-        }
+//        }
     }
     var counter = 1
     var timerCounter = 120

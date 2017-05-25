@@ -35,6 +35,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var didEnd = false
     var playAgainNode = SKSpriteNode()
     var backToMainNode = SKSpriteNode()
+    var resetNode = SKSpriteNode()
+    var backToMainOnBarNode = SKSpriteNode()
     
     override func didMove(to view: SKView)
     {
@@ -48,6 +50,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
         playAgainNode = self.childNode(withName: "playAgain") as! SKSpriteNode
         backToMainNode = self.childNode(withName: "backToMenu") as! SKSpriteNode
+        backToMainOnBarNode = self.childNode(withName: "backToMainOnBar") as! SKSpriteNode
+        resetNode = self.childNode(withName: "reset") as! SKSpriteNode
         
         playAgainNode.alpha = 0
         backToMainNode.alpha = 0
@@ -95,8 +99,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
+            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                reset()
+            }
+            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            }
+            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
@@ -119,20 +131,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                self.view?.window?.inputViewController?.performSegue(withIdentifier: "gameSceneTwoSegue", sender: self)
+            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                reset()
+            }
+            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            }
+            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
             }
             else if location.x > 0 && location.y < 249
             {
-                rightPaddle.run(SKAction.move(to: location, duration: 0.1))
+                rightPaddle.run(SKAction.move(to: location, duration: 0.05))
             }
             
             else if location.x < 0 && location.y < 249
             {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.1))
+                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
             }
         }
         }
@@ -171,8 +191,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func reset() {
-        let delayInSeconds = 2.0
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+//        let delayInSeconds = 2.0
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
             self.winnerLabel.text = "Ready!"
             self.leftScore.text = "0"
             self.rightScore.text = "0"
@@ -189,7 +209,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.timerCounter = 120
             self.backToMainNode.alpha = 0
             self.playAgainNode.alpha = 0
-        }
+//        }
     }
     
     var counter = 1
