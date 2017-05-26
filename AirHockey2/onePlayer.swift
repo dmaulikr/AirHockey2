@@ -23,6 +23,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var winnerLabel = SKLabelNode()
     var playAgainNode = SKSpriteNode()
     var backToMainNode = SKSpriteNode()
+    var backToMainOnBarNode = SKSpriteNode()
+    var resetNode = SKSpriteNode()
     
     override func didMove(to view: SKView)
     {
@@ -36,6 +38,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         winnerLabel = self.childNode(withName: "winnerLabel") as! SKLabelNode
         playAgainNode = self.childNode(withName: "playAgain") as! SKSpriteNode
         backToMainNode = self.childNode(withName: "backToMenu") as! SKSpriteNode
+        resetNode = self.childNode(withName: "reset") as! SKSpriteNode
+        backToMainOnBarNode = self.childNode(withName: "backToMainOnBar") as! SKSpriteNode
         
         playAgainNode.alpha = 0
         backToMainNode.alpha = 0
@@ -84,7 +88,14 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                reset()
+            }
+            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            }
+            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                 var viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
@@ -104,7 +115,14 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                reset()
+            }
+            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                var viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            }
+            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                 var viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
@@ -162,18 +180,20 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     func reset() {
 //        let delayInSeconds = 2.0
 //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-            self.winnerLabel.text = "Ready!"
-            self.leftScore.text = "0"
-            self.rightScore.text = "0"
-            self.leftScoreCounter = 0
-            self.rightScoreCounter = 0
-            self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
-            self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
-            self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
-            self.counter = 1
-            self.timerCounter = 120
-            self.backToMainNode.alpha = 0
-            self.playAgainNode.alpha = 0
+        self.winnerLabel.text = "Ready!"
+        self.leftScore.text = "0"
+        self.rightScore.text = "0"
+        self.leftScoreCounter = 0
+        self.rightScoreCounter = 0
+        self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
+        self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
+        self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
+        self.counter = 1
+        self.timerCounter = 120
+        self.backToMainNode.alpha = 0
+        self.playAgainNode.alpha = 0
+        self.backToMainOnBarNode.alpha = 1
+        self.resetNode.alpha = 1
 //        }
     }
     var counter = 1
@@ -210,6 +230,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         {
             playAgainNode.alpha = 1
             backToMainNode.alpha = 1
+            resetNode.alpha = 0
+            backToMainOnBarNode.alpha = 0
             if rightScoreCounter > leftScoreCounter
             {
                 winnerLabel.text = "CPU Wins!"
