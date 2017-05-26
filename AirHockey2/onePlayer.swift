@@ -69,9 +69,9 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         right.physicsBody = SKPhysicsBody(edgeFrom: topRight, to: bottomRight)
         
         addChild(bottom)
-        addChild(left)
+//        addChild(left)
         addChild(top)
-        addChild(right)
+//        addChild(right)
         
         leftPaddle.physicsBody?.categoryBitMask = paddleCategory
         rightPaddle.physicsBody?.categoryBitMask = paddleCategory
