@@ -88,7 +88,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if resetNode.contains(location) && resetNode.alpha == 1 {
                 reset()
             }
             else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
@@ -115,7 +115,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if resetNode.contains(location) && resetNode.alpha == 1 {
                 reset()
             }
             else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
