@@ -88,7 +88,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if resetNode.contains(location) && resetNode.alpha == 1 {
                 reset()
             }
             else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
@@ -115,7 +115,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if resetNode.contains(location) && resetNode.alpha == 1 {
                 reset()
             }
             else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
@@ -149,6 +149,11 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 print("left")
                 puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - leftPaddle.position.x)  , dy: 1.3 * (puck.position.y - leftPaddle.position.y)))
             }
+            if currentPaddle == "rightPaddle"
+            {
+                print("right")
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - rightPaddle.position.x)  , dy: 1.3 * (puck.position.y - rightPaddle.position.y)))
+            }
         }
         else if  contact.bodyB.categoryBitMask == paddleCategory {
             let currentPaddle = contact.bodyB.node?.name!
@@ -157,6 +162,11 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             {
                 print("right")
                 puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - rightPaddle.position.x)  , dy: 1.3 * (puck.position.y - rightPaddle.position.y)))
+            }
+            if currentPaddle == "leftPaddle"
+            {
+                print("left")
+                puck.physicsBody?.applyImpulse(CGVector(dx: 1.3 * (puck.position.x - leftPaddle.position.x)  , dy: 1.3 * (puck.position.y - leftPaddle.position.y)))
             }
         }
         
