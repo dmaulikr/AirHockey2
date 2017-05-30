@@ -212,9 +212,19 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         counter += 1
         if puck.position.x < 0
         {
+            let randomNumber = arc4random_uniform(500) + 1
             rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: puck.position.y), duration: 0.2))
         }
             
+        else if puck.position.x > 0 && puck.position.x > rightPaddle.position.x
+        {
+            if !(rightPaddle.position.x + 80 > 450) {
+                rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x + 80, y: puck.position.y), duration: 0.2))
+            }
+            else if rightPaddle.position.x + 80 > 450 {
+                rightPaddle.position.x = 450
+            }
+        }
         else if puck.position.x > 0
         {
             rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x, y: puck.position.y), duration: 0.2))
