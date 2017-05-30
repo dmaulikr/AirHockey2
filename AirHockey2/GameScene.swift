@@ -19,6 +19,8 @@ let rightCategory: UInt32 = 0x1 << 4
 let paddleCategory: UInt32 = 0x1 << 5
 let leftGoalCategory: UInt32 = 0x1 << 6
 let rightGoalCategory: UInt32 = 0x1 << 7
+let airHornSoundURL =  Bundle.main.url(forResource: "mlg-airhorn", withExtension: "mp3")!
+var airHornPlayer = AVAudioPlayer()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -37,6 +39,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backToMainNode = SKSpriteNode()
     var resetNode = SKSpriteNode()
     var backToMainOnBarNode = SKSpriteNode()
+    
+    func playMySound(){
+        airHornPlayer = try! AVAudioPlayer(contentsOf: airHornSoundURL)
+        airHornPlayer.prepareToPlay()
+        airHornPlayer.play()
+    }
     
     override func didMove(to view: SKView)
     {
@@ -180,6 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
             puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            playMySound()
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
@@ -187,6 +196,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             rightScore.text = "\(rightScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
             puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            playMySound()
         }
     }
     
