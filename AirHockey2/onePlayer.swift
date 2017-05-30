@@ -92,11 +92,11 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 reset()
             }
             else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
-                var viewControllerForSegue = self.view?.window?.rootViewController
+                let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                var viewControllerForSegue = self.view?.window?.rootViewController
+                let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
@@ -119,11 +119,11 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 reset()
             }
             else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
-                var viewControllerForSegue = self.view?.window?.rootViewController
+                let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                var viewControllerForSegue = self.view?.window?.rootViewController
+                let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
