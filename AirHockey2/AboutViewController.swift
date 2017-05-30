@@ -28,7 +28,7 @@ class AboutViewController: UIViewController {
     }
     
     @IBAction func back(_ sender: UIButton) {
-        var viewControllerForSegue = self.view?.window?.rootViewController
+        let viewControllerForSegue = self.view?.window?.rootViewController
         viewControllerForSegue?.dismiss(animated: true, completion: nil)
     }
 
