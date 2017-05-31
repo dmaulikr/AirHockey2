@@ -80,9 +80,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         right.physicsBody = SKPhysicsBody(edgeFrom: topRight, to: bottomRight)
         
         addChild(bottom)
-//        addChild(left)
+        //        addChild(left)
         addChild(top)
-//        addChild(right)
+        //        addChild(right)
         
         leftPaddle.physicsBody?.categoryBitMask = paddleCategory
         rightPaddle.physicsBody?.categoryBitMask = paddleCategory
@@ -95,66 +95,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter > 168 {
+        
         for touch in touches
         {
             let location = touch.location(in: self)
-            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
-                reset()
-            }
-            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
                 var viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
-            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                var viewControllerForSegue = self.view?.window?.rootViewController
-                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            if counter > 168 {
+                if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                    reset()
+                }
+                    
+                else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                    var viewControllerForSegue = self.view?.window?.rootViewController
+                    viewControllerForSegue?.dismiss(animated: true, completion: nil)
+                }
+                else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                    reset()
+                }
+                else if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
+                {
+                    rightPaddle.run(SKAction.move(to: location, duration: 0.1))
+                }
+                    
+                else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+                {
+                    leftPaddle.run(SKAction.move(to: location, duration: 0.1))
+                }
             }
-            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
-                reset()
-            }
-            else if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
-            {
-                rightPaddle.run(SKAction.move(to: location, duration: 0.1))
-            }
-            
-            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
-            {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.1))
-            }
-        }
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if counter > 168 {
+        
         for touch in touches
         {
             let location = touch.location(in: self)
-            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
-                reset()
-            }
-            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
                 var viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
-            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                var viewControllerForSegue = self.view?.window?.rootViewController
-                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            if counter > 168 {
+                if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                    reset()
+                }
+                else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                    var viewControllerForSegue = self.view?.window?.rootViewController
+                    viewControllerForSegue?.dismiss(animated: true, completion: nil)
+                }
+                else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                    reset()
+                }
+                else if location.x > 0 && location.y < 249
+                {
+                    rightPaddle.run(SKAction.move(to: location, duration: 0.05))
+                }
+                    
+                else if location.x < 0 && location.y < 249
+                {
+                    leftPaddle.run(SKAction.move(to: location, duration: 0.05))
+                }
             }
-            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
-                reset()
-            }
-            else if location.x > 0 && location.y < 249
-            {
-                rightPaddle.run(SKAction.move(to: location, duration: 0.05))
-            }
-            
-            else if location.x < 0 && location.y < 249
-            {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
-            }
-        }
         }
     }
     
@@ -191,8 +194,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func reset() {
-//        let delayInSeconds = 2.0
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+        //        let delayInSeconds = 2.0
+        //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
         self.winnerLabel.text = "Ready!"
         self.leftScore.text = "0"
         self.rightScore.text = "0"
@@ -212,7 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backToMainOnBarNode.alpha = 1
         self.resetNode.alpha = 1
         
-//        }
+        //        }
     }
     
     var counter = 1
@@ -246,17 +249,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if rightScoreCounter > leftScoreCounter
             {
                 winnerLabel.text = "Player 2 Wins!"
-//                reset()
+                //                reset()
                 didEnd = true
             }
             else if leftScoreCounter > rightScoreCounter
             {
                 winnerLabel.text = "Player 1 Wins!"
-//                reset()
+                //                reset()
                 didEnd = true
             }
             else {
-//                reset()
+                //                reset()
                 didEnd = true
             }
         }
