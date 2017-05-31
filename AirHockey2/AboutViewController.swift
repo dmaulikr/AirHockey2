@@ -30,6 +30,7 @@ class AboutViewController: UIViewController {
     @IBAction func back(_ sender: UIButton) {
         let viewControllerForSegue = self.view?.window?.rootViewController
         viewControllerForSegue?.dismiss(animated: true, completion: nil)
+        cheerPlayer.stop()
     }
 
     @IBAction func button1(_ sender: UIButton) {

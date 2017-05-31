@@ -126,17 +126,21 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             let location = touch.location(in: self)
             if resetNode.contains(location) && resetNode.alpha == 1 {
                 reset()
+                airHornPlayer.stop()
             }
             else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
                 let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
+                airHornPlayer.stop()
             }
             else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                 let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
+                airHornPlayer.stop()
             }
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
+                airHornPlayer.stop()
             }
             else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
             {
