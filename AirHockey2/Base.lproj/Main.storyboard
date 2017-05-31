@@ -144,6 +144,9 @@
                                 <state key="normal" title="Created by Jimmy Rodriguez, Olivia Marunde, Michal Juscinski, and Colin Safford">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="button1:" destination="3hp-Lg-RcQ" eventType="touchUpInside" id="86c-7v-sE5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSF-B9-qjm">
                                 <rect key="frame" x="20" y="240" width="984" height="114"/>
@@ -152,6 +155,9 @@
                                 <state key="normal" title="Meant to replicate the game air hockey into an app.">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="button2:" destination="3hp-Lg-RcQ" eventType="touchUpInside" id="WhL-R4-rWR"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xK1-oi-VCX">
                                 <rect key="frame" x="20" y="0.0" width="316" height="114"/>
@@ -171,6 +177,9 @@
                                 <state key="normal" title="Shout out to Camran for his consistent support with our project.">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="button3:" destination="3hp-Lg-RcQ" eventType="touchUpInside" id="l4L-1W-ECq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
