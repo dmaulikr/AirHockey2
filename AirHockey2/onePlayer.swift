@@ -8,6 +8,8 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
+
 
 class onePlayer: SKScene, SKPhysicsContactDelegate {
     
@@ -25,6 +27,13 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var backToMainNode = SKSpriteNode()
     var backToMainOnBarNode = SKSpriteNode()
     var resetNode = SKSpriteNode()
+
+    
+    func playMySound(){
+        airHornPlayer = try! AVAudioPlayer(contentsOf: airHornSoundURL)
+        airHornPlayer.prepareToPlay()
+        airHornPlayer.play()
+    }
     
     override func didMove(to view: SKView)
     {
@@ -119,6 +128,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
                 let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
+                airHornPlayer.stop()
             }
             if counter > 168 {
                 if resetNode.contains(location) && resetNode.alpha == 1 {
@@ -214,9 +224,19 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         counter += 1
         if puck.position.x < 0
         {
+            let randomNumber = arc4random_uniform(500) + 1
             rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: puck.position.y), duration: 0.2))
         }
             
+        else if puck.position.x > 0 && puck.position.x > rightPaddle.position.x
+        {
+            if !(rightPaddle.position.x + 80 > 450) {
+                rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x + 80, y: puck.position.y), duration: 0.2))
+            }
+            else if rightPaddle.position.x + 80 > 450 {
+                rightPaddle.position.x = 450
+            }
+        }
         else if puck.position.x > 0
         {
             rightPaddle.run(SKAction.move(to: CGPoint(x: puck.position.x, y: puck.position.y), duration: 0.2))
