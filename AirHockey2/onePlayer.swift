@@ -8,6 +8,8 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
+
 
 class onePlayer: SKScene, SKPhysicsContactDelegate {
     
@@ -25,6 +27,13 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var backToMainNode = SKSpriteNode()
     var backToMainOnBarNode = SKSpriteNode()
     var resetNode = SKSpriteNode()
+
+    
+    func playMySound(){
+        airHornPlayer = try! AVAudioPlayer(contentsOf: airHornSoundURL)
+        airHornPlayer.prepareToPlay()
+        airHornPlayer.play()
+    }
     
     override func didMove(to view: SKView)
     {
@@ -175,7 +184,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
             puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-
+            playMySound()
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
@@ -183,7 +192,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             rightScore.text = "\(rightScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
             puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-
+            playMySound()
         }
     }
     
