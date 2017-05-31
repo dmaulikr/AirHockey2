@@ -167,6 +167,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     leftPaddle.run(SKAction.move(to: location, duration: 0.05))
                 }
             }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+                airHornPlayer.stop()
+            }
+            else if location.x > 0 && location.y < 249
+            {
+                rightPaddle.run(SKAction.move(to: location, duration: 0.05))
+            }
+            
+            else if location.x < 0 && location.y < 249
+            {
+                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
+            }
         }
     }
     

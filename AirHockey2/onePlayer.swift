@@ -146,6 +146,14 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                     leftPaddle.run(SKAction.move(to: location, duration: 0.05))
                 }
             }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
+                airHornPlayer.stop()
+            }
+            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+            {
+                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
+            }
         }
     }
     
@@ -187,7 +195,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             leftScore.text = "\(leftScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: 150, y: -50), duration: 0.0))
             puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            
+            playMySound()
         }
             
         else if contact.bodyA.categoryBitMask == leftGoalCategory {
@@ -195,7 +203,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             rightScore.text = "\(rightScoreCounter)"
             puck.run(SKAction.move(to: CGPoint(x: -150, y: -50), duration: 0.0))
             puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            
+            playMySound()
         }
     }
     
