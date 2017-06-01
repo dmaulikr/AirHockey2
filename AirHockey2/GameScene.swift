@@ -144,23 +144,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
                 var viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
-                airHornPlayer.stop()
             }
             if counter > 168 {
                 if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
                     reset()
-                    airHornPlayer.stop()
                     
                 }
                 else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                     var viewControllerForSegue = self.view?.window?.rootViewController
                     viewControllerForSegue?.dismiss(animated: true, completion: nil)
-                    airHornPlayer.stop()
                     
                 }
                 else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                     reset()
-                    airHornPlayer.stop()
                     
                 }
                 else if location.x > 0 && location.y < 249
@@ -175,7 +171,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                 else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                     reset()
-                    airHornPlayer.stop()
                 }
                 else if location.x > 0 && location.y < 249
                 {
