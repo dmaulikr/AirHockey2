@@ -27,7 +27,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var backToMainNode = SKSpriteNode()
     var backToMainOnBarNode = SKSpriteNode()
     var resetNode = SKSpriteNode()
-
+    
     
     func playMySound(){
         airHornPlayer = try! AVAudioPlayer(contentsOf: airHornSoundURL)
@@ -101,24 +101,24 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
                 airHornPlayer.stop()
-
+                
             }
             if counter > 168 {
                 if resetNode.contains(location) && resetNode.alpha == 1 {
                     reset()
                     airHornPlayer.stop()
-
+                    
                 }
                 else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                     let viewControllerForSegue = self.view?.window?.rootViewController
                     viewControllerForSegue?.dismiss(animated: true, completion: nil)
                     airHornPlayer.stop()
-
+                    
                 }
                 else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                     reset()
                     airHornPlayer.stop()
-
+                    
                 }
                 else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
                 {
@@ -142,7 +142,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 if resetNode.contains(location) && resetNode.alpha == 1 {
                     reset()
                     airHornPlayer.stop()
-
+                    
                 }
                 else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                     let viewControllerForSegue = self.view?.window?.rootViewController
@@ -157,14 +157,14 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
                 {
                     leftPaddle.run(SKAction.move(to: location, duration: 0.05))
                 }
-            }
-            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
-                reset()
-                airHornPlayer.stop()
-            }
-            else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
-            {
-                leftPaddle.run(SKAction.move(to: location, duration: 0.05))
+                else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                    reset()
+                    airHornPlayer.stop()
+                }
+                else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+                {
+                    leftPaddle.run(SKAction.move(to: location, duration: 0.05))
+                }
             }
         }
     }
