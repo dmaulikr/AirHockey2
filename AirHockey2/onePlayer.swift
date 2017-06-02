@@ -235,7 +235,6 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
         counter += 1
         if puck.position.x < 0
         {
-            let randomNumber = arc4random_uniform(500) + 1
             rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: puck.position.y), duration: 0.2))
         }
             
