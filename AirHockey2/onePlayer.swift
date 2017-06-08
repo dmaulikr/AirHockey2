@@ -28,6 +28,8 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     var backToMainOnBarNode = SKSpriteNode()
     var resetNode = SKSpriteNode()
     
+    var number = 0
+    
     
     func playMySound(){
         airHornPlayer = try! AVAudioPlayer(contentsOf: airHornSoundURL)
@@ -213,15 +215,18 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
     func reset() {
         //        let delayInSeconds = 2.0
         //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+        self.counter = 1
         self.winnerLabel.text = "Ready!"
         self.leftScore.text = "0"
         self.rightScore.text = "0"
         self.leftScoreCounter = 0
         self.rightScoreCounter = 0
         self.puck.run(SKAction.move(to: CGPoint(x: 0, y: -50), duration: 0))
-        self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
+        self.puck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        //        self.rightPaddle.run(SKAction.move(to: CGPoint(x: 410, y: -50), duration: 0))
+        self.rightPaddle.position = CGPoint(x: 410, y: -50)
+        self.rightPaddle.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.leftPaddle.run(SKAction.move(to: CGPoint(x: -410, y: -50), duration: 0))
-        self.counter = 1
         self.timerCounter = 120
         self.backToMainNode.alpha = 0
         self.playAgainNode.alpha = 0
@@ -262,6 +267,7 @@ class onePlayer: SKScene, SKPhysicsContactDelegate {
             }
             else if counter <= 168 {
                 winnerLabel.text = "GO!"
+                number = 0
             }
             else if counter > 168 {
                 timerCounter -= 1
