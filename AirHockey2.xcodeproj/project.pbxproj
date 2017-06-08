@@ -123,7 +123,7 @@
 				TargetAttributes = {
 					D7519FE41EBB81BC000DC941 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = AVQMH63479;
+						DevelopmentTeam = CUE4YSU4ZA;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -299,11 +299,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = AVQMH63479;
+				DEVELOPMENT_TEAM = CUE4YSU4ZA;
 				INFOPLIST_FILE = AirHockey2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.jhhs.618064.AirHockeyBoi;
+				PRODUCT_BUNDLE_IDENTIFIER = org.jhhs.618064.AirHockey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -313,11 +313,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = AVQMH63479;
+				DEVELOPMENT_TEAM = CUE4YSU4ZA;
 				INFOPLIST_FILE = AirHockey2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.jhhs.618064.AirHockeyBoi;
+				PRODUCT_BUNDLE_IDENTIFIER = org.jhhs.618064.AirHockey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
