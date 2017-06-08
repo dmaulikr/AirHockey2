@@ -162,6 +162,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
                 reset()
             }
+            if counter > 168 {
+                if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                    reset()
+                }
+                    
+                else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                    let viewControllerForSegue = self.view?.window?.rootViewController
+                    viewControllerForSegue?.dismiss(animated: true, completion: nil)
+                }
+                else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                    reset()
+                }
+                else if location.x > 0 && location.y < 249 && location.x < -frame.origin.x - 25
+                {
+                    rightPaddle.run(SKAction.move(to: location, duration: 0.1))
+                }
+                    
+                else if location.x < 0 && location.y < 249 && location.x > frame.origin.x + 25
+                {
+                    leftPaddle.run(SKAction.move(to: location, duration: 0.1))
+                }
+            }
         }
     }
     
