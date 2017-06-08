@@ -18,9 +18,9 @@
 		E736E4381EBCCC1100DC6A90 /* onePlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = E736E4371EBCCC1100DC6A90 /* onePlayer.sks */; };
 		E736E43A1EBCCD1D00DC6A90 /* onePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E736E4391EBCCD1D00DC6A90 /* onePlayer.swift */; };
 		E736E43E1EBCCE9A00DC6A90 /* GameViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E736E43D1EBCCE9A00DC6A90 /* GameViewController2.swift */; };
-		E75494241EDDBFEC00D992F3 /* cheerSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E75494231EDDBFEC00D992F3 /* cheerSound.mp3 */; };
-		E75494261EDDC25500D992F3 /* mlg-airhorn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E75494251EDDC25500D992F3 /* mlg-airhorn.mp3 */; };
 		E7840A9E1ED879F9003B14FC /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7840A9D1ED879F9003B14FC /* AboutViewController.swift */; };
+		E7F9026A1EE97D9200054EDE /* cheerSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7F902681EE97D9200054EDE /* cheerSound.mp3 */; };
+		E7F9026B1EE97D9200054EDE /* mlg-airhorn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7F902691EE97D9200054EDE /* mlg-airhorn.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +37,9 @@
 		E736E4371EBCCC1100DC6A90 /* onePlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = onePlayer.sks; sourceTree = "<group>"; };
 		E736E4391EBCCD1D00DC6A90 /* onePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = onePlayer.swift; sourceTree = "<group>"; };
 		E736E43D1EBCCE9A00DC6A90 /* GameViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController2.swift; path = ../GameViewController2.swift; sourceTree = "<group>"; };
-		E75494231EDDBFEC00D992F3 /* cheerSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cheerSound.mp3; path = ../../../Downloads/cheerSound.mp3; sourceTree = "<group>"; };
-		E75494251EDDC25500D992F3 /* mlg-airhorn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "mlg-airhorn.mp3"; path = "../../../Downloads/mlg-airhorn.mp3"; sourceTree = "<group>"; };
 		E7840A9D1ED879F9003B14FC /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		E7F902681EE97D9200054EDE /* cheerSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cheerSound.mp3; sourceTree = "<group>"; };
+		E7F902691EE97D9200054EDE /* mlg-airhorn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "mlg-airhorn.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +72,8 @@
 		D7519FE71EBB81BC000DC941 /* AirHockey2 */ = {
 			isa = PBXGroup;
 			children = (
+				E7F902681EE97D9200054EDE /* cheerSound.mp3 */,
+				E7F902691EE97D9200054EDE /* mlg-airhorn.mp3 */,
 				E736E43D1EBCCE9A00DC6A90 /* GameViewController2.swift */,
 				D7519FE81EBB81BC000DC941 /* AppDelegate.swift */,
 				D7519FEA1EBB81BC000DC941 /* GameScene.sks */,
@@ -80,8 +82,6 @@
 				D7519FF01EBB81BC000DC941 /* GameViewController.swift */,
 				D7519FF21EBB81BC000DC941 /* Main.storyboard */,
 				E7840A9D1ED879F9003B14FC /* AboutViewController.swift */,
-				E75494231EDDBFEC00D992F3 /* cheerSound.mp3 */,
-				E75494251EDDC25500D992F3 /* mlg-airhorn.mp3 */,
 				E736E4371EBCCC1100DC6A90 /* onePlayer.sks */,
 				E736E4391EBCCD1D00DC6A90 /* onePlayer.swift */,
 				D7519FF51EBB81BC000DC941 /* Assets.xcassets */,
@@ -152,13 +152,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7519FF41EBB81BC000DC941 /* Main.storyboard in Resources */,
+				E7F9026A1EE97D9200054EDE /* cheerSound.mp3 in Resources */,
 				E736E4381EBCCC1100DC6A90 /* onePlayer.sks in Resources */,
 				D7519FEB1EBB81BC000DC941 /* GameScene.sks in Resources */,
 				D7519FF61EBB81BC000DC941 /* Assets.xcassets in Resources */,
+				E7F9026B1EE97D9200054EDE /* mlg-airhorn.mp3 in Resources */,
 				D7519FF91EBB81BC000DC941 /* LaunchScreen.storyboard in Resources */,
-				E75494261EDDC25500D992F3 /* mlg-airhorn.mp3 in Resources */,
 				D7519FED1EBB81BC000DC941 /* Actions.sks in Resources */,
-				E75494241EDDBFEC00D992F3 /* cheerSound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
