@@ -107,7 +107,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                reset()
+            }
+            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                let viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            }
+            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
                 let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
@@ -141,46 +148,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches
         {
             let location = touch.location(in: self)
-            if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+            if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
+                reset()
+            }
+            else if backToMainOnBarNode.contains(location) && backToMainOnBarNode.alpha == 1 {
                 let viewControllerForSegue = self.view?.window?.rootViewController
                 viewControllerForSegue?.dismiss(animated: true, completion: nil)
             }
-            if counter > 168 {
-                if resetNode.contains(location) && backToMainOnBarNode.alpha == 1 {
-                    reset()
-                    
-                }
-                else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
-                    let viewControllerForSegue = self.view?.window?.rootViewController
-                    viewControllerForSegue?.dismiss(animated: true, completion: nil)
-                    
-                }
-                else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
-                    reset()
-                    
-                }
-                else if location.x > 0 && location.y < 249
-                {
-                    rightPaddle.run(SKAction.move(to: location, duration: 0.05))
-                }
-                    
-                else if location.x < 0 && location.y < 249
-                {
-                    leftPaddle.run(SKAction.move(to: location, duration: 0.05))
-                }
-                    
-                else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
-                    reset()
-                }
-                else if location.x > 0 && location.y < 249
-                {
-                    rightPaddle.run(SKAction.move(to: location, duration: 0.05))
-                }
-                    
-                else if location.x < 0 && location.y < 249
-                {
-                    leftPaddle.run(SKAction.move(to: location, duration: 0.05))
-                }
+            else if backToMainNode.contains(location) && backToMainNode.alpha == 1 {
+                let viewControllerForSegue = self.view?.window?.rootViewController
+                viewControllerForSegue?.dismiss(animated: true, completion: nil)
+            }
+            else if playAgainNode.contains(location) && playAgainNode.alpha == 1 {
+                reset()
             }
         }
     }
